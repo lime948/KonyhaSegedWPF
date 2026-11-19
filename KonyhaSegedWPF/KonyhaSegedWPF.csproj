@@ -104,7 +104,10 @@
     <Compile Include="ReceptModels\Alapanyag.cs" />
     <Compile Include="ReceptModels\Hozzavalo.cs" />
     <Compile Include="ReceptModels\Recept.cs" />
+    <Compile Include="Services\AlapanyagService.cs" />
     <Compile Include="Services\DatabaseService.cs" />
+    <Compile Include="Services\HozzavaloService.cs" />
+    <Compile Include="Services\ReceptService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
