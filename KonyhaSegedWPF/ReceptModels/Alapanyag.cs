@@ -3,7 +3,7 @@
     /// <summary>
     /// Alapanyag osztály az `alapanyagok` tábla alapján
     /// </summary>
-    internal class Alapanyag
+    public class Alapanyag
     {
         /// <summary>
         /// Az alapanyag azonosítója
@@ -31,6 +31,11 @@
         /// </summary>
         public Alapanyag()
         {
+        }
+
+        public override string ToString()
+        {
+            return $"{Alapanyag_id}, {Nev}\n";
         }
     }
 }
