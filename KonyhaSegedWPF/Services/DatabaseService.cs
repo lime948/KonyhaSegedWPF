@@ -1,5 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
+using System.Windows;
 
 namespace KonyhaSegedWPF.Services
 {
@@ -17,9 +17,17 @@ namespace KonyhaSegedWPF.Services
         /// </summary>
         protected MySqlConnection GetOpenConnection()
         {
-            MySqlConnection myConnection = new MySqlConnection(ConnectionString);
-            myConnection.Open();
-            return myConnection;
+            try
+            {
+                MySqlConnection myConnection = new MySqlConnection(ConnectionString);
+                myConnection.Open();
+                return myConnection;
+            }
+            catch (System.Exception)
+            {
+                MessageBox.Show("Hiba történt az adatbázis kapcsolat létrehozása során. Ellenőrizze a kapcsolat beállításait.", "Adatbázis hiba", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
+            }
         }
 
         /// <summary>
@@ -57,7 +65,7 @@ namespace KonyhaSegedWPF.Services
             catch (MySqlException ex)
             {
                 // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
+                MessageBox.Show($"Hiba történt az adatbázis művelet során: {ex.Message}", "Adatbázis hiba", MessageBoxButton.OK, MessageBoxImage.Error);
                 return -1;
             }
         }

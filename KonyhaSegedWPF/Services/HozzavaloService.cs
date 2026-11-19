@@ -1,7 +1,7 @@
 ﻿using KonyhaSegedWPF.ReceptModels;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace KonyhaSegedWPF.Services
 {
@@ -53,7 +53,7 @@ namespace KonyhaSegedWPF.Services
             catch (MySqlException ex)
             {
                 // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
+                MessageBox.Show($"Hiba történt a hozzávalók lekérése során: {ex.Message}", "Adatbázis hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             // Lista visszaadása
@@ -104,7 +104,7 @@ namespace KonyhaSegedWPF.Services
             catch (MySqlException ex)
             {
                 // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
+                MessageBox.Show($"Hiba történt a hozzávaló lekérése során: {ex.Message}", "Adatbázis hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             // Lista visszaadása
@@ -121,7 +121,6 @@ namespace KonyhaSegedWPF.Services
         /// <returns>true, ha sikeres volt</returns>
         public bool CreateHozzavalo(int receptId, int alapanyagId, string mennyiseg)
         {
-            // Hozzavalo beszúrása paraméterezett paranccsal
             return ExecuteNonQuery(
                 "INSERT INTO hozzavalok (recept_id, alapanyag_id, mennyiseg) " +
                 "VALUES (@recept_id, @alapanyag_id, @mennyiseg);",
@@ -142,7 +141,6 @@ namespace KonyhaSegedWPF.Services
         /// <returns>true, ha sikeres volt</returns>
         public bool UpdateHozzavalo(int receptId, int alapanyagId, string mennyiseg)
         {
-            // Hozzavalo módosítása paraméterezett paranccsal
             return ExecuteNonQuery(
                 "UPDATE hozzavalok SET mennyiseg = @mennyiseg " +
                 "WHERE recept_id = @recept_id AND alapanyag_id = @alapanyag_id;",
@@ -161,7 +159,6 @@ namespace KonyhaSegedWPF.Services
         /// <returns>true, ha sikeres volt</returns>
         public bool DeleteHozzavalo(int receptId, int alapanyagId)
         {
-            // Hozzavalo törlése paraméterezett paranccsal
             return ExecuteNonQuery(
                 "DELETE FROM hozzavalok " +
                 "WHERE recept_id = @recept_id AND alapanyag_id = @alapanyag_id;",

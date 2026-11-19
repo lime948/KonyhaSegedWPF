@@ -1,7 +1,8 @@
 ﻿using KonyhaSegedWPF.ReceptModels;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
+using System.Windows;
+using System;
 
 namespace KonyhaSegedWPF.Services
 {
@@ -60,7 +61,7 @@ namespace KonyhaSegedWPF.Services
             catch (MySqlException ex)
             {
                 // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
+                MessageBox.Show($"Hiba történt a receptek lekérése során: {ex.Message}", "Adatbázis hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             // Lista visszaadása
@@ -116,7 +117,7 @@ namespace KonyhaSegedWPF.Services
             catch (MySqlException ex)
             {
                 // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
+                MessageBox.Show($"Hiba történt az recept lekérése során: {ex.Message}", "Adatbázis hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             // Nincs találat
@@ -130,49 +131,17 @@ namespace KonyhaSegedWPF.Services
         /// <summary>
         /// Új recept beszúrása. Az új recept_id-t az adatbázis generálja (AUTO_INCREMENT).
         /// </summary>
-        /// <returns>Az új recept_id, vagy -1 hiba esetén</returns>
-        public int CreateRecept(string nev, string leiras, int elkeszitesiIdo, string kategoria, string allergenek)
+        /// <returns>true, ha sikeres volt</returns>
+        public bool CreateHozzavalo(string nev, string leiras, int elkeszitesi_ido, string kategoria, string allergenek)
         {
-            // Recept beszúrása
-            try
-            {
-                // Csatlakozás az adatbázishoz
-                using (MySqlConnection myConnection = GetOpenConnection())
-                {
-                    // MySQL parancs létrehozása paraméterekkel
-                    using (MySqlCommand cmd = new MySqlCommand
-                    {
-                        Connection = myConnection,
-                        CommandText = "INSERT INTO receptek (nev, leiras, elkeszitesi_ido, kategoria, allergenek) " +
-                                      "VALUES (@nev, @leiras, @elkeszitesi_ido, @kategoria, @allergenek);"
-                    })
-                    {
-                        // Paraméterek hozzáadása (SQL injection ellen védve)
-                        cmd.Parameters.AddWithValue("@nev", nev);
-                        cmd.Parameters.AddWithValue("@leiras", leiras);
-                        cmd.Parameters.AddWithValue("@elkeszitesi_ido", elkeszitesiIdo);
-                        cmd.Parameters.AddWithValue("@kategoria", kategoria);
-
-                        // NULL engedélyezett az allergenek oszlopon
-                        cmd.Parameters.AddWithValue("@allergenek",
-                            (object)allergenek ?? DBNull.Value);
-
-                        // Parancs végrehajtása
-                        cmd.ExecuteNonQuery();
-
-                        // Az AUTO_INCREMENT által generált azonosító visszaadása
-                        return (int)cmd.LastInsertedId;
-                    }
-                }
-            }
-
-            // Sikertelen beszúrás esetén
-            catch (MySqlException ex)
-            {
-                // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
-                return -1;
-            }
+            return ExecuteNonQuery(
+                "INSERT INTO hozzavalok (nev, leiras, elkeszitesi_ido, kategoria, allergenek) " +
+                "VALUES (@nev, @leiras, @elkeszitesi_ido, @kategoria, @allergenek);",
+                new MySqlParameter("@nev", nev),
+                new MySqlParameter("@leiras", leiras),
+                new MySqlParameter("@elkeszitesi_ido", elkeszitesi_ido),
+                new MySqlParameter("@kategoria", kategoria),
+                new MySqlParameter("@allergenek", (object)allergenek ?? DBNull.Value)) > 0;
         }
 
         // =====================================================================
@@ -183,44 +152,18 @@ namespace KonyhaSegedWPF.Services
         /// Meglévő recept módosítása.
         /// </summary>
         /// <returns>true, ha sikeres volt</returns>
-        public bool UpdateRecept(int receptId, string nev, string leiras, int elkeszitesiIdo, string kategoria, string allergenek)
+        public bool UpdateRecept(int recept_id, string nev, string leiras, int elkeszitesi_ido, string kategoria, string allergenek)
         {
-            // Recept módosítása
-            try
             {
-                // Csatlakozás az adatbázishoz
-                using (MySqlConnection myConnection = GetOpenConnection())
-                {
-                    // MySQL parancs létrehozása paraméterekkel
-                    using (MySqlCommand cmd = new MySqlCommand
-                    {
-                        Connection = myConnection,
-                        CommandText = "UPDATE receptek SET nev = @nev, leiras = @leiras, " +
-                                      "elkeszitesi_ido = @elkeszitesi_ido, kategoria = @kategoria, " +
-                                      "allergenek = @allergenek WHERE recept_id = @recept_id;"
-                    })
-                    {
-                        // Paraméterek hozzáadása (SQL injection ellen védve)
-                        cmd.Parameters.AddWithValue("@nev", nev);
-                        cmd.Parameters.AddWithValue("@leiras", leiras);
-                        cmd.Parameters.AddWithValue("@elkeszitesi_ido", elkeszitesiIdo);
-                        cmd.Parameters.AddWithValue("@kategoria", kategoria);
-                        cmd.Parameters.AddWithValue("@allergenek",
-                            (object)allergenek ?? DBNull.Value);
-                        cmd.Parameters.AddWithValue("@recept_id", receptId);
-
-                        // Parancs végrehajtása
-                        return cmd.ExecuteNonQuery() > 0;
-                    }
-                }
-            }
-
-            // Sikertelen módosítás esetén
-            catch (MySqlException ex)
-            {
-                // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
-                return false;
+                return ExecuteNonQuery(
+                    "UPDATE hozzavalok SET nev = @nev, leiras = @leiras, elkeszitesi_ido = @elkeszitesi_ido, kategoria = @kategoria, allergenek = @allergenek) " +
+                    "WHERE recept_id = @recept_id;",
+                    new MySqlParameter("@recept_id", recept_id),
+                    new MySqlParameter("@nev", nev),
+                    new MySqlParameter("@leiras", leiras),
+                    new MySqlParameter("@elkeszitesi_ido", elkeszitesi_ido),
+                    new MySqlParameter("@kategoria", kategoria),
+                    new MySqlParameter("@allergenek", (object)allergenek ?? DBNull.Value)) > 0;
             }
         }
 

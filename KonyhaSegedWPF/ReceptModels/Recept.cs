@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
-
-namespace KonyhaSegedWPF.ReceptModels
+﻿namespace KonyhaSegedWPF.ReceptModels
 {
     /// <summary>
     /// Recept osztály a `receptek` tábla alapján

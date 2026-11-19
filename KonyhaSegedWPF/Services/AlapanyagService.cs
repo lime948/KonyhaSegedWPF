@@ -1,7 +1,7 @@
 ﻿using KonyhaSegedWPF.ReceptModels;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace KonyhaSegedWPF.Services
 {
@@ -51,7 +51,7 @@ namespace KonyhaSegedWPF.Services
             catch (MySqlException ex)
             {
                 // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
+                MessageBox.Show($"Hiba történt az alapanyagok lekérése során: {ex.Message}", "Adatbázis hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             // Lista visszaadása
@@ -97,7 +97,7 @@ namespace KonyhaSegedWPF.Services
             catch (MySqlException ex)
             {
                 // Hibaüzenet kiírása
-                Console.WriteLine(ex.Message);
+                MessageBox.Show($"Hiba történt az alapanyag lekérése során: {ex.Message}", "Adatbázis hiba", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             // Nincs találat
@@ -114,7 +114,6 @@ namespace KonyhaSegedWPF.Services
         /// <returns>true, ha sikeres volt</returns>
         public bool CreateAlapanyag(string nev)
         {
-            // Alapanyag beszúrása paraméterezett paranccsal
             return ExecuteNonQuery(
                 "INSERT INTO alapanyagok (nev) VALUES (@nev);",
                 new MySqlParameter("@nev", nev)) > 0;
@@ -130,7 +129,6 @@ namespace KonyhaSegedWPF.Services
         /// <returns>true, ha sikeres volt</returns>
         public bool UpdateAlapanyag(int alapanyagId, string nev)
         {
-            // Alapanyag módosítása paraméterezett paranccsal
             return ExecuteNonQuery(
                 "UPDATE alapanyagok SET nev = @nev WHERE alapanyag_id = @alapanyag_id;",
                 new MySqlParameter("@nev", nev),
@@ -148,7 +146,6 @@ namespace KonyhaSegedWPF.Services
         /// <returns>true, ha sikeres volt</returns>
         public bool DeleteAlapanyag(int alapanyagId)
         {
-            // Alapanyag törlése paraméterezett paranccsal
             return ExecuteNonQuery(
                 "DELETE FROM alapanyagok WHERE alapanyag_id = @alapanyag_id;",
                 new MySqlParameter("@alapanyag_id", alapanyagId)) > 0;
