@@ -1,4 +1,4 @@
-﻿namespace KonyhaSeged.ReceptModels
+﻿namespace KonyhaSegedWPF.ReceptModels
 {
     /// <summary>
     /// Alapanyag osztály az `alapanyagok` tábla alapján

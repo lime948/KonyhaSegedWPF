@@ -1,10 +1,10 @@
-﻿using KonyhaSeged.ReceptModels;
+﻿using KonyhaSegedWPF.ReceptModels;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 
-namespace KonyhaSeged.Services
+namespace KonyhaSegedWPF.Services
 {
     internal class DatabaseService
     {

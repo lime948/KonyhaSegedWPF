@@ -1,4 +1,4 @@
-﻿namespace KonyhaSeged.ReceptModels
+﻿namespace KonyhaSegedWPF.ReceptModels
 {
     /// <summary>
     /// Recept osztály a `receptek` tábla alapján

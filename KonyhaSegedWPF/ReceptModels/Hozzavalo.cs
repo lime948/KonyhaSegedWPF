@@ -1,4 +1,4 @@
-﻿namespace KonyhaSeged.ReceptModels
+﻿namespace KonyhaSegedWPF.ReceptModels
 {
     /// <summary>
     /// Hozzavalo osztály a `hozzavalok` tábla alapján
