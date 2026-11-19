@@ -92,6 +92,10 @@
 
         }
 
+        /// <summary>
+        /// Egy formázott stringet ad vissza a recept adataival
+        /// </summary>
+        /// <returns>Egy formázott stringet</returns>
         public override string ToString()
         {
             return $"{recept_id}, {nev}, {leiras}, {elkeszitesi_ido}, {kategoria}, {allergenek}\n";

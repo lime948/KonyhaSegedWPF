@@ -56,6 +56,10 @@
 
         }
 
+        /// <summary>
+        /// Egy formázott stringet ad vissza a hozzávaló adataival
+        /// </summary>
+        /// <returns>Egy formázott stringet</returns>
         public override string ToString()
         {
             return $"{recept_id}, {alapanyag_id}, {mennyiseg}\n";
