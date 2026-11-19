@@ -1,9 +1,11 @@
-﻿namespace KonyhaSegedWPF.ReceptModels
+﻿using System.Runtime.InteropServices.WindowsRuntime;
+
+namespace KonyhaSegedWPF.ReceptModels
 {
     /// <summary>
     /// Recept osztály a `receptek` tábla alapján
     /// </summary>
-    internal class Recept
+    public class Recept
     {
         /// <summary>
         /// A recept azonosítója
@@ -90,6 +92,11 @@
         public Recept()
         {
 
+        }
+
+        public override string ToString()
+        {
+            return $"{recept_id}, {nev}, {leiras}, {elkeszitesi_ido}, {kategoria}, {allergenek}\n";
         }
     }
 }

@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TextBlock x:Name="tbkReceptek" Width="479" HorizontalAlignment="Left"/>
+        <TextBlock x:Name="tbkHozzavalok" Width="114" HorizontalAlignment="Left" Margin="497,0,0,0"/>
+        <TextBlock x:Name="tbkAlapanyagok" Width="168" HorizontalAlignment="Left" Margin="632,0,0,0"/>
     </Grid>
 </Window>

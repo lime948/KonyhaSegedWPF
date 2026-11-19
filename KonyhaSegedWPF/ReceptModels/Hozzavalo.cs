@@ -3,7 +3,7 @@
     /// <summary>
     /// Hozzavalo osztály a `hozzavalok` tábla alapján
     /// </summary>
-    internal class Hozzavalo
+    public class Hozzavalo
     {
         /// <summary>
         /// A hozzávaló által összekötött recept azonosítója
@@ -54,6 +54,11 @@
         public Hozzavalo()
         {
 
+        }
+
+        public override string ToString()
+        {
+            return $"{recept_id}, {alapanyag_id}, {mennyiseg}\n";
         }
     }
 }
