@@ -22,7 +22,9 @@ namespace KonyhaSegedWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly DatabaseService databaseService = new DatabaseService();
+        private readonly ReceptService receptService = new ReceptService();
+        private readonly HozzavaloService hozzavaloService = new HozzavaloService();
+        private readonly AlapanyagService alapanyagService = new AlapanyagService();
         public List<Recept> receptek;
         public List<Hozzavalo> hozzavalok;
         public List<Alapanyag> alapanyagok;
@@ -30,9 +32,9 @@ namespace KonyhaSegedWPF
         public MainWindow()
         {
             InitializeComponent();
-            receptek = databaseService.ReadReceptek();
-            hozzavalok = databaseService.ReadHozzavalok();
-            alapanyagok = databaseService.ReadAlapanyagok();
+            receptek = receptService.ReadReceptek();
+            hozzavalok = hozzavaloService.ReadHozzavalok();
+            alapanyagok = alapanyagService.ReadAlapanyagok();
 
             foreach (var recept in receptek)
             {
