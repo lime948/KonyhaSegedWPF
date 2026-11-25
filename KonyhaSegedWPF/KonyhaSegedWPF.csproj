@@ -101,6 +101,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Display\HozzavaloView.cs" />
     <Compile Include="ReceptModels\Alapanyag.cs" />
     <Compile Include="ReceptModels\Hozzavalo.cs" />
     <Compile Include="ReceptModels\Recept.cs" />

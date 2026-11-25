@@ -132,14 +132,14 @@ namespace KonyhaSegedWPF.Services
         /// Új recept beszúrása. Az új recept_id-t az adatbázis generálja (AUTO_INCREMENT).
         /// </summary>
         /// <returns>true, ha sikeres volt</returns>
-        public bool CreateHozzavalo(string nev, string leiras, int elkeszitesi_ido, string kategoria, string allergenek)
+        public bool CreateRecept(string nev, string leiras, int elkeszitesiIdo, string kategoria, string allergenek)
         {
             return ExecuteNonQuery(
-                "INSERT INTO hozzavalok (nev, leiras, elkeszitesi_ido, kategoria, allergenek) " +
+                "INSERT INTO receptek (nev, leiras, elkeszitesi_ido, kategoria, allergenek) " +
                 "VALUES (@nev, @leiras, @elkeszitesi_ido, @kategoria, @allergenek);",
                 new MySqlParameter("@nev", nev),
                 new MySqlParameter("@leiras", leiras),
-                new MySqlParameter("@elkeszitesi_ido", elkeszitesi_ido),
+                new MySqlParameter("@elkeszitesi_ido", elkeszitesiIdo),
                 new MySqlParameter("@kategoria", kategoria),
                 new MySqlParameter("@allergenek", (object)allergenek ?? DBNull.Value)) > 0;
         }
@@ -152,19 +152,18 @@ namespace KonyhaSegedWPF.Services
         /// Meglévő recept módosítása.
         /// </summary>
         /// <returns>true, ha sikeres volt</returns>
-        public bool UpdateRecept(int recept_id, string nev, string leiras, int elkeszitesi_ido, string kategoria, string allergenek)
+        public bool UpdateRecept(int receptId, string nev, string leiras, int elkeszitesiIdo, string kategoria, string allergenek)
         {
-            {
-                return ExecuteNonQuery(
-                    "UPDATE hozzavalok SET nev = @nev, leiras = @leiras, elkeszitesi_ido = @elkeszitesi_ido, kategoria = @kategoria, allergenek = @allergenek) " +
-                    "WHERE recept_id = @recept_id;",
-                    new MySqlParameter("@recept_id", recept_id),
-                    new MySqlParameter("@nev", nev),
-                    new MySqlParameter("@leiras", leiras),
-                    new MySqlParameter("@elkeszitesi_ido", elkeszitesi_ido),
-                    new MySqlParameter("@kategoria", kategoria),
-                    new MySqlParameter("@allergenek", (object)allergenek ?? DBNull.Value)) > 0;
-            }
+            return ExecuteNonQuery(
+                "UPDATE receptek SET nev = @nev, leiras = @leiras, elkeszitesi_ido = @elkeszitesi_ido, " +
+                "kategoria = @kategoria, allergenek = @allergenek " +
+                "WHERE recept_id = @recept_id;",
+                new MySqlParameter("@recept_id", receptId),
+                new MySqlParameter("@nev", nev),
+                new MySqlParameter("@leiras", leiras),
+                new MySqlParameter("@elkeszitesi_ido", elkeszitesiIdo),
+                new MySqlParameter("@kategoria", kategoria),
+                new MySqlParameter("@allergenek", (object)allergenek ?? DBNull.Value)) > 0;
         }
 
         // =====================================================================
