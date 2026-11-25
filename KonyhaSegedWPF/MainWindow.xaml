@@ -45,7 +45,7 @@
         </Style>
 
         <!-- ============================================================ -->
-        <!--  Label / TextBox / ComboBox / Button                         -->
+        <!--  Label / TextBox / PasswordBox / ComboBox / Button           -->
         <!-- ============================================================ -->
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
@@ -65,8 +65,18 @@
             <Setter Property="Margin" Value="0,4,0,4"/>
             <Setter Property="Padding" Value="4,2"/>
         </Style>
+        
+        <Style TargetType="PasswordBox">
+            <Setter Property="Background"  Value="{DynamicResource ControlBackgroundBrush}"/>
+            <Setter Property="Foreground"  Value="{DynamicResource ForegroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
+            <Setter Property="CaretBrush"  Value="{DynamicResource ForegroundBrush}"/>
+            
+            <Setter Property="Margin" Value="0,4,0,4"/>
+            <Setter Property="Padding" Value="4,2"/>
+        </Style>
 
-        <Style TargetType="ComboBox">
+            <Style TargetType="ComboBox">
             <Setter Property="Background"  Value="{DynamicResource ControlBackgroundBrush}"/>
             <Setter Property="Foreground"  Value="{DynamicResource ForegroundBrush}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
@@ -102,6 +112,11 @@
             <Setter Property="Foreground" Value="{DynamicResource ForegroundBrush}"/>
             <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}"/>
             <Setter Property="Padding" Value="12,6"/>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Foreground" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
     </Window.Resources>
@@ -138,6 +153,84 @@
         <!--  TabControl                                                      -->
         <!-- ================================================================ -->
         <TabControl>
+
+            <!-- ============================================================ -->
+            <!--  BEJELENTKEZÉS / REGISZTRÁCIÓ                                -->
+            <!-- ============================================================ -->
+            <TabItem Header="Bejelentkezés / Regisztráció">
+                <Grid Margin="24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="24"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox Grid.Column="0"
+                              BorderBrush="{DynamicResource BorderBrush}"
+                              Padding="16" HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top">
+                        <GroupBox.Header>
+                            <TextBlock Text="Bejelentkezés" Foreground="{DynamicResource ForegroundBrush}"/>
+                        </GroupBox.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Felhasználónév:"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="tbLoginUsername"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="Jelszó:"/>
+                            <PasswordBox Grid.Row="1" Grid.Column="1" x:Name="pbLoginPassword"
+                             Margin="0,4,0,4" Padding="4,2"/>
+                            <Button Grid.Row="2" Grid.Column="1" Content="Bejelentkezés"
+                        HorizontalAlignment="Right" Margin="0,12,0,0"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox Grid.Column="2"
+                              BorderBrush="{DynamicResource BorderBrush}"
+                              Padding="16" HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top">
+                        <GroupBox.Header>
+                            <TextBlock Text="Regisztráció" Foreground="{DynamicResource ForegroundBrush}"/>
+                        </GroupBox.Header>
+                        
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Content="Felhasználónév:"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" x:Name="tbRegUsername"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="E-mail:"/>
+                            <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbRegEmail"/>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Jelszó:"/>
+                            <PasswordBox Grid.Row="2" Grid.Column="1" x:Name="pbRegPassword"
+                             Margin="0,4,0,4" Padding="4,2"/>
+                            <Label Grid.Row="3" Grid.Column="0" Content="Jelszó újra:"/>
+                            <PasswordBox Grid.Row="3" Grid.Column="1" x:Name="pbRegPasswordConfirm"
+                             Margin="0,4,0,4" Padding="4,2"/>
+                            <Button Grid.Row="4" Grid.Column="1" Content="Regisztráció"
+                        HorizontalAlignment="Right" Margin="0,12,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
 
             <!-- ============================================================ -->
             <!--  RECEPTEK                                                    -->
@@ -318,7 +411,6 @@
                     </Border>
                 </Grid>
             </TabItem>
-
         </TabControl>
     </DockPanel>
 </Window>
