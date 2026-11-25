@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using KonyhaSegedWPF.Themes;
 
 namespace KonyhaSegedWPF
 {
@@ -286,5 +287,10 @@ namespace KonyhaSegedWPF
         }
 
         private void btnHozzavaloRefresh_Click(object sender, RoutedEventArgs e) => BetoltMinden();
+
+        private void chkDarkMode_Changed(object sender, RoutedEventArgs e)
+        {
+            ThemeManager.Apply(chkDarkMode.IsChecked == true ? Theme.Dark : Theme.Light);
+        }
     }
 }
